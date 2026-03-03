@@ -29,18 +29,20 @@
       <thead>
         <tr>
           <th>Nom</th>
+          <th>Description</th>
           <th>Email</th>
           <th>Catégorie</th>
-          <th>Responsable</th>
+          <th>Téléphone</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let boutique of filteredBoutiques">
-          <td>{{ boutique.nom }}</td>
+          <td>{{ boutique.name }}</td>
+          <td>{{ boutique.description }} </td>
           <td>{{ boutique.email }}</td>
-          <td>{{ boutique.categorie?.name || 'Non définie' }}</td>
-          <td>{{ boutique.responsable.nom }} {{ boutique.responsable.prenom }} - {{ boutique.responsable.contact }}</td>
+          <td>{{ boutique.categoryId?.name || 'Non définie' }}</td>
+          <td>{{ boutique.phone }} </td>
           <td>
             <button  *ngIf="boutique._id" 
         class="btn btn-primary" (click)="editBoutique(boutique._id)">Modifier</button>

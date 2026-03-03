@@ -1,6 +1,7 @@
 const Contrat = require("../models/admin/contrat/contrat");
 const Boutique = require("../models/admin/boutique/boutique");
 const Lot = require("../models/admin/lot/lot");
+const Shop = require("../models/boutique/Shop");
 
 async function checkAndExpireContrat(contrat) {
     const now = new Date();
@@ -23,7 +24,7 @@ exports.createContrat = async (req, res) => {
     try {
         const { boutiqueId, lotId, dateDebut, dateFin, datePaiement, dateEnvoie } = req.body;
 
-        const boutique = await Boutique.findById(boutiqueId);
+        const boutique = await Shop.findById(boutiqueId);
         if (!boutique) return res.status(400).json({ message: "Boutique invalide" });
 
         const lot = await Lot.findById(lotId);

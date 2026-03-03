@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="purchase-container">
+  <div class="form-wrapper">
+
+    <div class="form-header">
+      <h1 class="form-title">Paiement Facture</h1>
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="field-error">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="paiementForm" (ngSubmit)="onPaiement()">
+
+      <div class="form-field">
+        <label>Facture *</label>
+        <select formControlName="factureId" class="field-input">
+          <option value="">Sélectionner une facture</option>
+          <option *ngFor="let f of factures" [value]="f._id">
+            {{ f.periode }} -
+            {{ f.contratId?.boutiqueId?.name || 'Boutique inconnue' }} -
+            {{ f.montantTotal | number:'1.0-0' }} Ariary
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="paiementForm.invalid || loading">
+          {{ loading ? 'Paiement...' : 'Payer la facture' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

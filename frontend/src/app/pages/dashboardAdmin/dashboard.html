@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<div class="dashboard-container" *ngIf="!loading">
+<div class="te" >
+    </div>
+
+  <div *ngIf="errorMessage" class="field-error">{{ errorMessage }}</div>
+
+ <div class="lots-stats">
+    <div class="stat-card-lot">
+      <div class="stat-label">Revenus mensuels</div>
+      <div class="stat-value">{{ revenusMensuels | number:'1.0-0' }} Ariary</div>
+    </div>
+    <div class="stat-card-lot available">
+      <div class="stat-label">Taux d'occupation</div>
+      <div class="stat-value">{{ tauxOccupation }} %</div>
+    </div>
+    <div class="stat-card-lot occupied">
+      <div class="stat-label">Impayés</div>
+      <div class="stat-value">Total: {{ totalImpayes }}</div>
+    </div>
+  </div>
+
+  <div class="impayes-list" *ngIf="impayes.length">
+    <h4>Factures impayées</h4>
+    <ul>
+      <li *ngFor="let f of impayes">
+        {{ f.periode }} - {{ f.boutique }} - {{ f.montant | number:'1.0-0' }} Ariary
+      </li>
+    </ul>
+  </div>
+
+</div>

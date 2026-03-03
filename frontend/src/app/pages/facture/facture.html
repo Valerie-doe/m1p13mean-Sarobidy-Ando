@@ -1,0 +1,58 @@
+<app-header></app-header>
+
+<div class="purchase-container">
+  <div class="form-wrapper">
+
+    <div class="form-header">
+      <h1 class="form-title">Génération des Factures</h1>
+    </div>
+
+    <!-- Success -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <!-- Erreurs simples -->
+    <div *ngIf="errorMessage" class="field-error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Erreurs détaillées -->
+    <div *ngIf="errorList.length" class="field-error">
+      <p>⚠️ Certaines factures n'ont pas été générées :</p>
+      <ul>
+        <li *ngFor="let e of errorList">{{ e }}</li>
+      </ul>
+    </div>
+
+    <form [formGroup]="factureForm" (ngSubmit)="onGenerate()">
+
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label>Mois *</label>
+          <select formControlName="mois" class="field-input">
+            <option value="">Sélectionner</option>
+            <option *ngFor="let m of moisList" [value]="m.value">
+              {{ m.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Année *</label>
+          <input type="number" formControlName="annee" class="field-input">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="factureForm.invalid || loading">
+          {{ loading ? 'Génération...' : 'Générer les factures' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

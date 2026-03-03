@@ -46,15 +46,13 @@
           <th>Fin</th>
           <th>Loyer Mensuel</th>
           <th>Statut</th>
-          <th>Date Paiement</th>
-<th>Date Envoi</th>
           <th>Actions</th>
 
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let c of filteredContrats">
-          <td>{{ typeof c.boutiqueId !== 'string' ? c.boutiqueId.nom : '-' }}</td>
+          <td>{{ typeof c.boutiqueId !== 'string' ? c.boutiqueId.name : '-' }}</td>
 <td>{{ typeof c.lotId !== 'string' ? c.lotId.numero : '-' }}</td>
 
 <td>{{ c.dateDebut | date:'dd/MM/yyyy' }}</td>
@@ -71,8 +69,6 @@
   </span>
 </td>
 
-<td>{{ c.datePaiement  }}</td>
-<td>{{ c.dateEnvoie }}</td>
 <td>
   <button class="btn btn-primary" (click)="goToEditContrat(c._id!)">Modifier</button>
 </td>

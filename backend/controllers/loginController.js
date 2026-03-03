@@ -40,7 +40,11 @@ exports.login = async (req, res) => {
     );
     console.log("✅ JWT généré :", token);
 
+<<<<<<< Updated upstream
     // 🔹 Réponse finale
+=======
+  
+>>>>>>> Stashed changes
     res.json({
       token,
       user: {

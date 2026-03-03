@@ -46,9 +46,7 @@ export class AddContrat implements OnInit {
       boutiqueId: ['', Validators.required],
       lotId: ['', Validators.required],
       dateDebut: ['', Validators.required],
-      dateFin: ['', Validators.required],
-      datePaiement: [''],
-      dateEnvoie: ['']
+      dateFin: ['', Validators.required]
     });
   }
 

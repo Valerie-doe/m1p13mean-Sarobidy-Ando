@@ -8,9 +8,9 @@ export const ApiEndpoints = {
     CREATE:'api/lots/',
     UPDATE:'api/lots/'
   },BOUTIQUES:{
-    GETALL:'api/boutiques/',
-    CREATE:'api/boutiques/',
-    UPDATE:'api/boutiques/'
+    GETALL:'api/shops/',
+    CREATE:'api/shops/',
+    UPDATE:'api/shops/'
   },CONTRATS:{
     GETALL:'api/contrats/',
     CREATE:'api/contrats/',
@@ -19,4 +19,13 @@ export const ApiEndpoints = {
   CATEGORIES:{
     GETALL:'api/categories_products/'
   },
+  FACTURE:{
+    GENERATE:'api/factures/generate/',
+    GETALL:'api/factures/getall/',
+  },PAIEMENT:{
+    CREATE:'api/paiements/create/',
+  }, 
+  DASHBOARD : {
+  STATS: 'api/dashboard/admin'
+}
 };

@@ -20,6 +20,9 @@ import { Boutique } from './pages/boutique/boutique';
 import { AddBoutique } from './pages/boutique/add-boutique/add-boutique';
 import { Contrats } from './pages/contrats/contrats';
 import { AddContrat } from './pages/contrats/add-contrat/add-contrat';
+import { GenerateFacture } from './pages/facture/facture';
+import { PaiementFactureComponent } from './pages/paiement-facture/paiement-facture';
+import { DashboardComponent } from './pages/dashboardAdmin/dashboard';
 
 export const routes: Routes = [
     {path : 'shop-list', component : ShopList},
@@ -45,6 +48,10 @@ export const routes: Routes = [
     {path: 'boutique/add/:id',component: AddBoutique},  
     {path : 'contrats', component : Contrats},
     {path : 'contrats/add', component : AddContrat},
-    {path: 'contrats/add/:id',component: AddContrat}
+    {path: 'contrats/add/:id',component: AddContrat},
+    {path: 'facture',component: GenerateFacture},
+    {path: 'paiement',component: PaiementFactureComponent},
+    {path: 'dashboardAdmin',component: DashboardComponent}
+
 
   ];

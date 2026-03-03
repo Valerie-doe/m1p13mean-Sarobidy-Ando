@@ -46,13 +46,15 @@ app.use('/api/promotions', require('./routes/promotionRoutes'));
 app.use('/api/cart', require('./routes/carteRoutes'));
 app.use('/api/delivery',authMiddleware, require('./routes/deliveryRoutes'));
 app.use('/api/favorites', require('./routes/favoriteRoutes'));
-app.use('/api/dashboard',authMiddleware, require('./routes/dashboardRoutes'));
+app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 app.use('/api/login', require('./routes/loginRoutes')); 
 app.use('/api/ratings', require('./routes/ratingRoutes')); 
 app.use('/api/auth', authRoutes);
 app.use("/api/lots", lotRoutes);
 app.use("/api/boutiques", boutiqueRoutes);
 app.use("/api/contrats", require('./routes/contratRoutes'));
+const paiementFactureRoutes = require('./routes/paiementFactureRoutes');
+app.use('/api/paiements', paiementFactureRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

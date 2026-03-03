@@ -4,6 +4,11 @@ const Customer = require('../models/boutique/Customer');
 const mongoose = require('mongoose');
 const Sales = require('../models/boutique/Sales');
 
+const Facture = require('../models/admin/facture/facture');
+const PaiementFacture = require('../models/admin/facture/paiementFacture');
+const Contrat = require('../models/admin/contrat/contrat');
+const Boutique = require('../models/admin/boutique/boutique'); // modèle boutique
+
 exports.getKPI = async (req, res) => {
   try {
     const { shopId } = req.params;
@@ -128,5 +133,58 @@ exports.getKPI = async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+
+// ================= Dashboard =================
+exports.getDashboardStats = async (req, res) => {
+  try {
+    // 🔹 Revenus mensuels (paiements ce mois)
+    const now = new Date();
+    const startMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    const revenus = await PaiementFacture.aggregate([
+      {
+        $match: {
+          datePaiement: { $gte: startMonth, $lte: endMonth }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$montant" }
+        }
+      }
+    ]);
+
+    const totalRevenus = revenus[0]?.total || 0;
+
+    // 🔹 Taux d'occupation
+    const totalBoutiques = await Boutique.countDocuments();
+    const contratsActifs = await Contrat.countDocuments({ statut: "ACTIF" });
+    const tauxOccupation = totalBoutiques ? (contratsActifs / totalBoutiques) * 100 : 0;
+
+    // 🔹 Impayés
+    const facturesNonPayees = await Facture.find().populate('contratId');
+    const paiements = await PaiementFacture.find();
+    const paiementsIds = paiements.map(p => p.factureId.toString());
+    const impayes = facturesNonPayees.filter(f => !paiementsIds.includes(f._id.toString()));
+
+    res.status(200).json({
+      revenusMensuels: totalRevenus,
+      tauxOccupation: tauxOccupation.toFixed(2),
+      impayes: impayes.map(f => ({
+        _id: f._id,
+        periode: f.periode,
+        boutique: f.contratId?.boutiqueId?.name,
+        montant: f.montantTotal
+      })),
+      totalImpayes: impayes.length
+    });
+  } catch (error) {
+    console.error("Erreur dashboard:", error);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 };

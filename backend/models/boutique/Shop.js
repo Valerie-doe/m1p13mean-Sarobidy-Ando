@@ -7,7 +7,7 @@ const shopSchema = new mongoose.Schema({
   categoryId : { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
 
   // 🔹 Localisation physique
-  unitNumber: { type: String, required: true },
+  unitNumber: { type: String },
   floor: { type: Number },                       
   surface: { type: Number },                     
   phone: { type: String },

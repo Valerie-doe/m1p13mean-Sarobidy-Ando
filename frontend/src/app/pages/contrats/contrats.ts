@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Header } from '../header/header';
 export interface Contrat {
   _id?: string;
-  boutiqueId: string | { _id: string; nom: string };
+  boutiqueId: string | { _id: string; name: string };
   lotId: string | { _id: string; numero: string; prix?: number };
 
   dateDebut: string;
@@ -50,6 +50,8 @@ filterStatut: string = '';
       },
       error: err => console.error('Erreur chargement contrats', err)
     });
+    console.log(this.contrats);
+
   }
 
   goToEditContrat(id: string) {
@@ -62,7 +64,7 @@ applyFilters(): void {
     // Filtre boutique
     const boutiqueMatch =
       !this.filterBoutique ||
-      (c.boutiqueId && typeof c.boutiqueId !== 'string' && c.boutiqueId.nom.toLowerCase().includes(this.filterBoutique.toLowerCase()));
+      (c.boutiqueId && typeof c.boutiqueId !== 'string' && c.boutiqueId.name.toLowerCase().includes(this.filterBoutique.toLowerCase()));
 
     // Filtre lot
     const lotMatch =
@@ -92,7 +94,7 @@ onSearch(): void {
     this.filteredContrats = this.contrats;
   } else {
     this.filteredContrats = this.contrats.filter(c => 
-      (typeof c.boutiqueId !== 'string' && c.boutiqueId?.nom.toLowerCase().includes(term)) ||
+      (typeof c.boutiqueId !== 'string' && c.boutiqueId?.name.toLowerCase().includes(term)) ||
       (typeof c.lotId !== 'string' && c.lotId?.numero.toLowerCase().includes(term))
     );
   }

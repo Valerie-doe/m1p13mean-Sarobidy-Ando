@@ -4,66 +4,78 @@
   <div class="form-wrapper">
 
     <div class="form-header">
-      <h1 class="form-title">{{ modeEdition ? 'Modifier la Boutique' : 'Nouvelle Boutique' }}</h1>
-      <p class="form-subtitle">
-        {{ modeEdition ? 'Modifier les informations de la boutique' : 'Créer une nouvelle boutique' }}
-      </p>
+      <h1 class="form-title">
+        {{ modeEdition ? 'Modifier la Boutique' : 'Nouvelle Boutique' }}
+      </h1>
     </div>
 
     <div *ngIf="showSuccess" class="success-message">
-      {{ modeEdition ? 'Boutique modifiée avec succès ✅' : 'Boutique créée avec succès ✅' }}
+      Boutique créée avec succès ✅
     </div>
- <div *ngIf="loginInfo && !modeEdition" class="login-info">
-    <p>💻 Email : {{ loginInfo.email }}</p>
-    <p>🔑 Mot de passe : {{ loginInfo.password }}</p>
-  </div>
 
-    <div *ngIf="errorMessage" class="field-error">{{ errorMessage }}</div>
+    <div *ngIf="loginInfo && !modeEdition" class="login-info">
+      <p>💻 Email : {{ loginInfo.email }}</p>
+      <p>🔑 Mot de passe : {{ loginInfo.password }}</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="field-error">
+      {{ errorMessage }}
+    </div>
 
     <form [formGroup]="boutiqueForm" (ngSubmit)="onSubmit()">
 
       <div class="form-grid">
+
         <div class="form-field">
-          <label>Nom <span class="required-mark">*</span></label>
-          <input type="text" formControlName="nom" class="field-input" placeholder="Nom de la boutique">
+          <label>Nom *</label>
+          <input type="text" formControlName="name" class="field-input">
         </div>
 
         <div class="form-field">
-          <label>Email <span class="required-mark">*</span></label>
-          <input type="email" formControlName="email" class="field-input" placeholder="Email">
+          <label>Email *</label>
+          <input type="email" formControlName="email" class="field-input">
         </div>
 
         <div class="form-field">
-          <label>Catégorie <span class="required-mark">*</span></label>
-          <select formControlName="categorie" class="field-input">
-            <option value="">Sélectionner une catégorie</option>
-            <option *ngFor="let cat of categories" [value]="cat._id">{{ cat.name }}</option>
+          <label>Catégorie *</label>
+          <select formControlName="categoryId" class="field-input">
+            <option value="">Sélectionner</option>
+            <option *ngFor="let cat of categories" [value]="cat._id">
+              {{ cat.name }}
+            </option>
           </select>
         </div>
 
         <div class="form-field">
-          <label>Nom Responsable <span class="required-mark">*</span></label>
-          <input type="text" formControlName="responsableNom" class="field-input" placeholder="Nom">
+          <label>Téléphone</label>
+          <input type="text" formControlName="phone" class="field-input">
         </div>
 
         <div class="form-field">
-          <label>Prénom Responsable <span class="required-mark">*</span></label>
-          <input type="text" formControlName="responsablePrenom" class="field-input" placeholder="Prénom">
+          <label>Website</label>
+          <input type="text" formControlName="website" class="field-input">
         </div>
 
         <div class="form-field">
-          <label>Contact Responsable <span class="required-mark">*</span></label>
-          <input type="text" formControlName="responsableContact" class="field-input" placeholder="Contact">
+          <label>Heures d'ouverture</label>
+          <input type="text" formControlName="openingHours" class="field-input">
         </div>
 
         <div class="form-field">
-          <label>Cin Responsable <span class="required-mark">*</span></label>
-          <input type="text" formControlName="responsableCin" class="field-input" placeholder="Cin">
+          <label>Description</label>
+          <textarea formControlName="description" class="field-input"></textarea>
         </div>
+
+        <div class="form-field">
+          <label>Image URL</label>
+          <input type="text" formControlName="imageUrl" class="field-input">
+        </div>
+
       </div>
+
       <div class="form-actions">
-        <button type="submit" class="btn-submit" [disabled]="boutiqueForm.invalid || loading">
-          {{ loading ? (modeEdition ? 'Modification...' : 'Création...') : (modeEdition ? 'Modifier' : 'Créer') }}
+        <button type="submit" [disabled]="boutiqueForm.invalid || loading">
+          {{ loading ? 'Création...' : 'Créer' }}
         </button>
       </div>
 

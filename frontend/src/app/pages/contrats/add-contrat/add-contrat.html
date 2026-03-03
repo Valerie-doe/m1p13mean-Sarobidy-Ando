@@ -19,7 +19,7 @@
           <label>Boutique <span class="required-mark">*</span></label>
           <select formControlName="boutiqueId" class="field-input">
             <option value="">Sélectionner une boutique</option>
-            <option *ngFor="let b of boutiques" [value]="b._id">{{ b.nom }}</option>
+            <option *ngFor="let b of boutiques" [value]="b._id">{{ b.name }}</option>
           </select>
         </div>
 
@@ -41,15 +41,6 @@
           <input type="date" formControlName="dateFin" class="field-input">
         </div>
       </div>
-<div class="form-field">
-  <label>Date Paiement</label>
-  <input type="number" formControlName="datePaiement" class="field-input">
-</div>
-
-<div class="form-field">
-  <label>Date Envoi</label>
-  <input type="number" formControlName="dateEnvoie" class="field-input">
-</div>
       <div class="form-actions">
         <button type="submit" class="btn-submit" [disabled]="contratForm.invalid || loading">
           {{ loading ? (modeEdition ? 'Modification...' : 'Création...') : (modeEdition ? 'Modifier' : 'Créer') }}

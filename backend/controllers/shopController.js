@@ -1,9 +1,35 @@
 const Shop = require('../models/boutique/Shop');
+const crypto = require("crypto");
+const Utilisateur = require("../models/admin/utilisateur/utilisateur"); 
 
 // Créer une boutique
 exports.createShop = async (req, res) => {
     try {
+                const generatedPassword = crypto.randomBytes(4).toString("hex");
+        
         const shop = await Shop.create(req.body);
+        
+                // ✅ Création user lié à la boutique
+                const user = new Utilisateur({
+                    nom: shop.name,
+                    email: shop.email,
+                    password: generatedPassword,
+                    role: "BOUTIQUE",
+                    boutiqueId: shop._id
+                });
+        
+                await user.save();
+        
+                res.status(201).json({
+                    message: "Boutique et utilisateur créés avec succès",
+                    shop,
+                    user: {
+                        email: user.email,
+                        password: generatedPassword
+                    }
+                });
+        
+        
         res.status(201).json(shop);
     } catch (err) {
         res.status(500).json({ error: err.message });

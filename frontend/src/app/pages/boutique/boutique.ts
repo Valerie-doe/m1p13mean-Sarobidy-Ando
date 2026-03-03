@@ -15,10 +15,12 @@ export interface Responsable {
 
 export interface Boutique {
   _id?: string;
-  nom: string;
+  name: string;
   email: string;
-  categorie: { _id: string; name: string };
-  responsable: Responsable;
+  website: string;
+  phone: string;
+  description: string;
+  categoryId: { _id: string; name: string };
 }
 
 @Component({
@@ -56,7 +58,7 @@ export class Boutique implements OnInit {
       this.filteredBoutiques = this.boutiques;
     } else {
       this.filteredBoutiques = this.boutiques.filter(b =>
-        b.nom.toLowerCase().includes(term) || b.email.toLowerCase().includes(term)
+        b.name.toLowerCase().includes(term) || b.email.toLowerCase().includes(term)
       );
     }
   }

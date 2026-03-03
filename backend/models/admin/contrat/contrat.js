@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const contratSchema = new mongoose.Schema({
     boutiqueId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Boutique",
+        ref: "Shop",
         required: true
     },
     lotId: {
@@ -19,15 +19,7 @@ const contratSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    datePaiement: {
-        type: Number,
-        default: null
-    },
-    dateEnvoie: {
-        type: Number,
-        default: null
-    },
-    loyerMensuel: {
+        loyerMensuel: {
         type: Number,
         required: true
     },
